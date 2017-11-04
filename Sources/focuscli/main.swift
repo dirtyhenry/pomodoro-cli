@@ -10,14 +10,15 @@ func outputProgressBar(timeInterval: TimeInterval) {
     print("endDate: \(endDate)")
 
     let stringLength: Int = 60
-    let sleepTime = timeInterval / Double(stringLength) / 4
-    print("sleepTime: \(sleepTime)")
+    let sleepTime = UInt32(timeInterval / Double(stringLength) / 2)
 
-    let progress = Progress(totalUnitCount: Int64(timeInterval))
+    print("sleepTime: \(sleepTime)")
+    let progress = Progress(totalUnitCount: Int64(timeInterval * 1000))
     progress.completedUnitCount = 0
     while !progress.isFinished {
         let elapsedTime = Date().timeIntervalSince(startDate)
-        progress.completedUnitCount = Int64(elapsedTime)
+        progress.completedUnitCount = Int64(elapsedTime * 1000)
+
         let completedChars = Int(progress.fractionCompleted * Double(stringLength))
         let remainingChars = stringLength - completedChars
 
