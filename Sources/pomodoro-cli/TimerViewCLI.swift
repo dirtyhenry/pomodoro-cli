@@ -18,48 +18,55 @@ class TimerViewCLI {
     let output: FileHandle
     var timerViewModel: TimerViewModelType?
     let outputLength: Int = 60
-    var sleepTime: UInt32 = 1
+    var sleepTime: TimeInterval = 1
+    let intervalBeforePuttingDisplayToSleep: TimeInterval = 10
 
-    let dateFormatter: DateFormatter
+    let dateFormatter: DateFormatter = {
+        let result = DateFormatter()
+        result.dateStyle = .short
+        result.timeStyle = .medium
+        return result
+    }()
 
     init(output: FileHandle) {
         self.output = output
-        self.dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .medium
-
     }
 
     func start(timeInterval: TimeInterval) {
-        timerViewModel = TimerViewModel(timeInterval: timeInterval, fireHandler: {
+        let timerViewModel = TimerViewModel(timeInterval: timeInterval, fireHandler: {
             //...
         })
+        self.timerViewModel = timerViewModel
 
-        output.write(string: "Timer launched at \(dateFormatter.string(from: timerViewModel!.outputs.startDate))\n")
-        output.write(string: "Timer will fire at \(dateFormatter.string(from: timerViewModel!.outputs.endDate))\n")
-
-        let notification = NSUserNotification()
-        notification.title = "Title"
-        notification.subtitle = "Subtitle"
-        notification.informativeText = "informativeText"
-        notification.soundName = NSUserNotificationDefaultSoundName
-        notification.deliveryDate = timerViewModel!.outputs.endDate
-        NSUserNotificationCenter.default.scheduleNotification(notification)
-
-        sleepTime = UInt32(timeInterval / Double(outputLength))
-
-        while !timerViewModel!.outputs.progress.isFinished {
-            let progress = timerViewModel!.outputs.progress
-            let completedChars = Int(progress.fractionCompleted * Double(outputLength))
-            let remainingChars = outputLength - completedChars
-            let completedString = String(repeatElement("#", count: completedChars))
-            let remainingString = String(repeatElement(".", count: remainingChars))
-            output.write(string: "\(completedString)\(remainingString)\r")
-            sleep(sleepTime)
+        output.write(string: "🍅 from \(dateFormatter.string(from: timerViewModel.outputs.startDate)) to \(dateFormatter.string(from: timerViewModel.outputs.endDate))\n")
+        sleepTime = timeInterval / TimeInterval(outputLength)
+        while !timerViewModel.outputs.progress.isFinished {
+            outputLine(for: timerViewModel.outputs.progress.fractionCompleted)
+            Thread.sleep(forTimeInterval: sleepTime)
         }
-
+        outputLine(for: 1.0)
         output.write(string: "\nTimer ended\n")
-
+        sayThePomodoEnded()
+        Thread.sleep(forTimeInterval: intervalBeforePuttingDisplayToSleep)
+        putDisplayToSleep()
         exit(EXIT_SUCCESS)
+    }
+
+    private func outputLine(for fractionCompleted: Double) {
+        let completedChars = Int(fractionCompleted * Double(outputLength))
+        let remainingChars = outputLength - completedChars
+        let completedString = String(repeatElement("#", count: completedChars))
+        let remainingString = String(repeatElement(".", count: remainingChars))
+        output.write(string: "[\(completedString)\(remainingString)]\r")
+    }
+
+    private func sayThePomodoEnded() {
+        let task = Process.launchedProcess(launchPath: "/usr/bin/say", arguments: ["--voice=Alice", "Il pomodoro è finito."])
+        task.waitUntilExit()
+    }
+
+    private func putDisplayToSleep() {
+        let task = Process.launchedProcess(launchPath: "/usr/bin/pmset", arguments: ["displaysleepnow"])
+        task.waitUntilExit()
     }
 }
