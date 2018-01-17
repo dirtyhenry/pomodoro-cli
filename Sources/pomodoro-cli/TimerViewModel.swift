@@ -1,0 +1,64 @@
+//
+//  TimerViewModel.swift
+//  pomodoro-cli
+//
+//  Created by Mickaël Floc'hlay on 06/11/2017.
+//
+
+import Foundation
+
+protocol TimerViewModelInputs {
+}
+
+protocol TimerViewModelOutputs {
+    var startDate: Date { get }
+    var endDate: Date { get }
+    var progress: Progress { get }
+}
+
+protocol TimerViewModelType {
+    var inputs: TimerViewModelInputs { get }
+    var outputs: TimerViewModelOutputs { get }
+}
+
+class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOutputs {
+    let startDate: Date
+    let timerDuration: TimeInterval
+
+    var endDate: Date {
+        return startDate.addingTimeInterval(timerDuration)
+    }
+
+    var fireHandler: () -> () = { () }
+
+    var progress: Progress {
+        let progress = Progress(totalUnitCount: Int64(timerDuration * 1000))
+        let elapsedTime = Date().timeIntervalSince(startDate)
+        progress.completedUnitCount = Int64(elapsedTime * 1000)
+        return progress
+    }
+
+    init(timeInterval: TimeInterval, fireHandler: @escaping (() -> ())) {
+        self.startDate = Date()
+        self.timerDuration = timeInterval
+        self.fireHandler = fireHandler
+
+//        let timer = Timer(fireAt: endDate,
+//                          interval: 1.0,
+//                          target: self,
+//                          selector: #selector(fire),
+//                          userInfo: nil,
+//                          repeats: false)
+//        timer.tolerance = 0.1 * timeInterval
+//        RunLoop.current.add(timer, forMode: .defaultRunLoopMode)
+    }
+
+    @objc func fire() {
+        fireHandler()
+    }
+
+    // MARK: - Define inputs & outputs
+
+    var inputs: TimerViewModelInputs { return self }
+    var outputs: TimerViewModelOutputs { return self }
+}
