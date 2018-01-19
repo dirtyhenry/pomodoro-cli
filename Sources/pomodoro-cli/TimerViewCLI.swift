@@ -38,6 +38,9 @@ class TimerViewCLI {
         })
         self.timerViewModel = timerViewModel
 
+        sayThePomodoStarted()
+        startFocus()
+
         output.write(string: "🍅 from \(dateFormatter.string(from: timerViewModel.outputs.startDate)) to \(dateFormatter.string(from: timerViewModel.outputs.endDate))\n")
         sleepTime = timeInterval / TimeInterval(outputLength)
         while !timerViewModel.outputs.progress.isFinished {
@@ -47,6 +50,7 @@ class TimerViewCLI {
         outputLine(for: 1.0)
         output.write(string: "\nTimer ended\n")
         sayThePomodoEnded()
+        stopFocus()
         Thread.sleep(forTimeInterval: intervalBeforePuttingDisplayToSleep)
         putDisplayToSleep()
         exit(EXIT_SUCCESS)
@@ -58,6 +62,21 @@ class TimerViewCLI {
         let completedString = String(repeatElement("#", count: completedChars))
         let remainingString = String(repeatElement(".", count: remainingChars))
         output.write(string: "[\(completedString)\(remainingString)]\r")
+    }
+
+    private func startFocus() {
+        let task = Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["focus://focus"])
+        task.waitUntilExit()
+    }
+
+    private func stopFocus() {
+        let task = Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["focus://unfocus"])
+        task.waitUntilExit()
+    }
+
+    private func sayThePomodoStarted() {
+        let task = Process.launchedProcess(launchPath: "/usr/bin/say", arguments: ["--voice=Alice", "Go ! Andiamo a lavorare."])
+        task.waitUntilExit()
     }
 
     private func sayThePomodoEnded() {
