@@ -1,5 +1,8 @@
 build:
 	swift build
 
-install:
+deploy:
 	cp .build/debug/pomodoro-cli $(HOME)/bin/
+
+install:
+	swift package update
