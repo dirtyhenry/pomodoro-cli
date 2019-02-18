@@ -9,10 +9,9 @@ import Foundation
 
 extension FileHandle {
     func write(string: String) {
-        self.write(string.data(using: .utf8)!)
+        write(string.data(using: .utf8)!)
     }
 }
-
 
 class TimerViewCLI {
     let output: FileHandle
@@ -33,15 +32,14 @@ class TimerViewCLI {
     }
 
     func start(timeInterval: TimeInterval) {
-        let timerViewModel = TimerViewModel(timeInterval: timeInterval, fireHandler: {
-            //...
-        })
+        let timerViewModel = TimerViewModel(timeInterval: timeInterval)
         self.timerViewModel = timerViewModel
 
-        sayThePomodoStarted()
-        startFocus()
+        didStart()
 
-        output.write(string: "🍅 from \(dateFormatter.string(from: timerViewModel.outputs.startDate)) to \(dateFormatter.string(from: timerViewModel.outputs.endDate))\n")
+        let beginning = dateFormatter.string(from: timerViewModel.outputs.startDate)
+        let end = dateFormatter.string(from: timerViewModel.outputs.endDate)
+        output.write(string: "🍅 from \(beginning) to \(end)\n")
         sleepTime = timeInterval / TimeInterval(outputLength)
         while !timerViewModel.outputs.progress.isFinished {
             outputLine(for: timerViewModel.outputs.progress.fractionCompleted)
@@ -49,10 +47,9 @@ class TimerViewCLI {
         }
         outputLine(for: 1.0)
         output.write(string: "\nTimer ended\n")
-        sayThePomodoEnded()
-        stopFocus()
-        Thread.sleep(forTimeInterval: intervalBeforePuttingDisplayToSleep)
-        putDisplayToSleep()
+
+        didEnd()
+
         exit(EXIT_SUCCESS)
     }
 
@@ -64,28 +61,15 @@ class TimerViewCLI {
         output.write(string: "[\(completedString)\(remainingString)]\r")
     }
 
-    private func startFocus() {
-        let task = Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["focus://focus"])
+    private func didStart() {
+        // TODO: make sure the file exists
+        let task = Process.launchedProcess(launchPath: "~/.pomodoro-cli/didStart.sh", arguments: [])
         task.waitUntilExit()
     }
 
-    private func stopFocus() {
-        let task = Process.launchedProcess(launchPath: "/usr/bin/open", arguments: ["focus://unfocus"])
-        task.waitUntilExit()
-    }
-
-    private func sayThePomodoStarted() {
-        let task = Process.launchedProcess(launchPath: "/usr/bin/say", arguments: ["--voice=Alice", "Go ! Andiamo a lavorare."])
-        task.waitUntilExit()
-    }
-
-    private func sayThePomodoEnded() {
-        let task = Process.launchedProcess(launchPath: "/usr/bin/say", arguments: ["--voice=Alice", "Il pomodoro è finito."])
-        task.waitUntilExit()
-    }
-
-    private func putDisplayToSleep() {
-        let task = Process.launchedProcess(launchPath: "/usr/bin/pmset", arguments: ["displaysleepnow"])
+    private func didEnd() {
+        // TODO: make sure the file exists
+        let task = Process.launchedProcess(launchPath: "~/.pomodoro-cli/didEnd.sh", arguments: [])
         task.waitUntilExit()
     }
 }

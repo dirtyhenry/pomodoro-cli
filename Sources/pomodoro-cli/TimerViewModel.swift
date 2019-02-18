@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol TimerViewModelInputs {
-}
+protocol TimerViewModelInputs {}
 
 protocol TimerViewModelOutputs {
     var startDate: Date { get }
@@ -29,8 +28,6 @@ class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOu
         return startDate.addingTimeInterval(timerDuration)
     }
 
-    var fireHandler: () -> () = { () }
-
     var progress: Progress {
         let progress = Progress(totalUnitCount: Int64(timerDuration * 1000))
         let elapsedTime = Date().timeIntervalSince(startDate)
@@ -38,23 +35,9 @@ class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOu
         return progress
     }
 
-    init(timeInterval: TimeInterval, fireHandler: @escaping (() -> ())) {
-        self.startDate = Date()
-        self.timerDuration = timeInterval
-        self.fireHandler = fireHandler
-
-//        let timer = Timer(fireAt: endDate,
-//                          interval: 1.0,
-//                          target: self,
-//                          selector: #selector(fire),
-//                          userInfo: nil,
-//                          repeats: false)
-//        timer.tolerance = 0.1 * timeInterval
-//        RunLoop.current.add(timer, forMode: .defaultRunLoopMode)
-    }
-
-    @objc func fire() {
-        fireHandler()
+    init(timeInterval: TimeInterval) {
+        startDate = Date()
+        timerDuration = timeInterval
     }
 
     // MARK: - Define inputs & outputs

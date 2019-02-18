@@ -1,8 +1,24 @@
+prefix ?= /usr/local
+bindir = $(prefix)/bin
+
+install:
+	brew bundle
+	yarn install
+	swift package update
+
 build:
 	swift build
 
-deploy:
-	cp .build/debug/pomodoro-cli $(HOME)/bin/
+lint:
+	swiftformat .
+	swiftlint
 
-install:
-	swift package update
+run-test:
+	.build/debug/pomodoro-cli 10
+
+deploy:
+	swift build -c release --disable-sandbox
+	install ".build/release/pomodoro-cli" "$(bindir)"
+
+clean:
+	rm -rf .build
