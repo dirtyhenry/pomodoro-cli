@@ -12,6 +12,7 @@ Then:
 
 ```bash
 make install
+make deploy
 ```
 
 ## Usage
