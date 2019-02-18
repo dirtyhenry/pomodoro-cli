@@ -17,12 +17,22 @@ make deploy
 
 ## Usage
 
-`pomodoro-cli` only supports one argument: the duration of your pomodoro timer in seconds. For instance, if you stick to the pomodoro book, you should use `1500` (25 minutes × 60 seconds = 1,500 seconds).
-
 <div align="center">
   <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/master/docs/assets/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
   </a>
 </div>
+
+`pomodoro-cli` only supports one option: the duration of your pomodoro timer in seconds. Its default value sticks to the pomodoro book: `1500` (25 minutes × 60 seconds = 1,500 seconds).
+
+```
+> pomodoro-cli --help
+Usage:
+
+    $ pomodoro-cli
+
+Options:
+    --duration - The duration of the pomodoro in seconds.
+```
 
 ## Contributing
 
