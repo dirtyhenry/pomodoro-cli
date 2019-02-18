@@ -3,7 +3,6 @@ bindir = $(prefix)/bin
 
 install:
 	brew bundle
-	yarn install
 	swift package update
 
 build:
