@@ -6,7 +6,7 @@ When I started this project, I wrote a [blog post][blog-post] on my motivations 
 
 ## Installation
 
-First, make sure [Swift is installed on your environment](https://swift.org/getting-started/).
+First, make sure [Homebrew](https://brew.sh/) & [Swift](https://swift.org/getting-started/) are installed on your environment.
 
 Then:
 
