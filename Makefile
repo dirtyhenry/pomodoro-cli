@@ -4,6 +4,10 @@ bindir = $(prefix)/bin
 install:
 	brew bundle
 	swift package update
+	swift package generate-xcodeproj
+
+open:
+	open Pomodoro.xcodeproj
 
 build:
 	swift build

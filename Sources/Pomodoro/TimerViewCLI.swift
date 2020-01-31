@@ -13,7 +13,7 @@ extension FileHandle {
     }
 }
 
-class TimerViewCLI {
+public class TimerViewCLI {
     let output: FileHandle
     var timerViewModel: TimerViewModelType?
     let outputLength: Int = 60
@@ -27,11 +27,20 @@ class TimerViewCLI {
         return result
     }()
 
-    init(output: FileHandle) {
+    public init(output: FileHandle) {
         self.output = output
     }
 
-    func start(timeInterval: TimeInterval) {
+    public func start(timeIntervalString: String) {
+        do {
+            let timeInterval = try TimeInterval.fromHumanReadableString(timeIntervalString)
+            start(timeInterval: timeInterval)
+        } catch {
+            output.write(string: "Could not start the timer with interval \(timeIntervalString)")
+        }
+    }
+    
+    public func start(timeInterval: TimeInterval) {
         let timerViewModel = TimerViewModel(timeInterval: timeInterval)
         self.timerViewModel = timerViewModel
 
