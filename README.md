@@ -22,16 +22,14 @@ make deploy
   </a>
 </div>
 
-`pomodoro-cli` only supports one option: the duration of your pomodoro timer in seconds. Its default value sticks to the pomodoro book: `1500` (25 minutes × 60 seconds = 1,500 seconds).
-
 ```
 > pomodoro-cli --help
 Usage:
 
-    $ pomodoro-cli
+    $ .build/debug/PomodoroCLI
 
 Options:
-    --duration - The duration of the pomodoro in seconds.
+    --duration [default: 1500] - The duration of the pomodoro in seconds (100) or in minutes (10m).
 ```
 
 ## Contributing
