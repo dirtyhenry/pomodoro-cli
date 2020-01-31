@@ -17,11 +17,11 @@ lint:
 	swiftlint
 
 run-test:
-	.build/debug/pomodoro-cli 10
+	.build/debug/PomodoroCLI --duration 10
 
 deploy:
 	swift build -c release --disable-sandbox
-	install ".build/release/pomodoro-cli" "$(bindir)"
+	install ".build/release/PomodoroCLI" "$(bindir)/pomodoro-cli"
 
 clean:
 	rm -rf .build
