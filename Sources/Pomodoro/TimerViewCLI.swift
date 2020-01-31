@@ -39,7 +39,7 @@ public class TimerViewCLI {
             output.write(string: "Could not start the timer with interval \(timeIntervalString)")
         }
     }
-    
+
     public func start(timeInterval: TimeInterval) {
         let timerViewModel = TimerViewModel(timeInterval: timeInterval)
         self.timerViewModel = timerViewModel
