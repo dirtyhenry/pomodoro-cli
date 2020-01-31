@@ -1,0 +1,56 @@
+{
+  "entries": {
+    "brew": {
+      "swiftlint": {
+        "version": "0.38.2",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.38.2.catalina.bottle.tar.gz",
+              "sha256": "17825c973c9bff40f16a37e9500e3bcea295bc5f490979d3eec73c17b1eb11f4"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/swiftlint-0.38.2.mojave.bottle.tar.gz",
+              "sha256": "26a3db64ed222c5a3b58a920919bbcd06feb371c9d4241f00623935670f588d4"
+            }
+          }
+        }
+      },
+      "swiftformat": {
+        "version": "0.44.0",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/swiftformat-0.44.0.catalina.bottle.tar.gz",
+              "sha256": "07c72ee82ff59ad84a4ddca7dea83ac94ba76c29758b9602f9afb478213e3bc2"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/swiftformat-0.44.0.mojave.bottle.tar.gz",
+              "sha256": "1650e00f1ba45795d397e12332a82e3a5926f184ef19d217b680b281e1e30565"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/swiftformat-0.44.0.high_sierra.bottle.tar.gz",
+              "sha256": "e7034ee588615738dac8a9b2ebeb2dfd2ce58e1c59b51fb869ebb9cd2b30442c"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.2.4",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "e8a9116f3e1e8de84357203d749f1a6935d939d9",
+        "CLT": "",
+        "Xcode": "11.3.1",
+        "macOS": "10.15.1"
+      }
+    }
+  }
+}
