@@ -22,6 +22,8 @@ run-test:
 deploy:
 	swift build -c release --disable-sandbox
 	install ".build/release/PomodoroCLI" "$(bindir)/pomodoro-cli"
+	mkdir -p "$(HOME)/.pomodoro-cli"
+	cp Resources/SampleHooks/did*.sh "$(HOME)/.pomodoro-cli"
 
 clean:
 	rm -rf .build

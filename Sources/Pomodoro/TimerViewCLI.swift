@@ -44,7 +44,7 @@ public class TimerViewCLI {
         let timerViewModel = TimerViewModel(timeInterval: timeInterval)
         self.timerViewModel = timerViewModel
 
-        didStart()
+        Hook.didStart.execute(completionHandler: hookCompletionHandler)
 
         let beginning = dateFormatter.string(from: timerViewModel.outputs.startDate)
         let end = dateFormatter.string(from: timerViewModel.outputs.endDate)
@@ -57,7 +57,7 @@ public class TimerViewCLI {
         outputLine(for: 1.0)
         output.write(string: "\nTimer ended\n")
 
-        didEnd()
+        Hook.didFinish.execute(completionHandler: hookCompletionHandler)
 
         exit(EXIT_SUCCESS)
     }
@@ -70,15 +70,17 @@ public class TimerViewCLI {
         output.write(string: "[\(completedString)\(remainingString)]\r")
     }
 
-    private func didStart() {
-        // TODO: make sure the file exists
-        let task = Process.launchedProcess(launchPath: "~/.pomodoro-cli/didStart.sh", arguments: [])
-        task.waitUntilExit()
-    }
-
-    private func didEnd() {
-        // TODO: make sure the file exists
-        let task = Process.launchedProcess(launchPath: "~/.pomodoro-cli/didEnd.sh", arguments: [])
-        task.waitUntilExit()
+    private func hookCompletionHandler(result: Result<Void, HookError>) {
+        switch result {
+        case .success:
+            debugPrint("✌️ Hook completed successfully.")
+        case let .failure(error):
+            switch error {
+            case .noExecutableFileAtPath:
+                output.write(string: "\n💡 Did you know you can configure hooks for pomodoros? Check the README.\n")
+            default:
+                output.write(string: "\n☹️ The pomodoro hook failed executing.\n")
+            }
+        }
     }
 }
