@@ -83,10 +83,7 @@ public class TimerViewCLI {
     }
 
     private func hookCompletionHandler(result: Result<Void, HookError>) {
-        switch result {
-        case .success:
-            debugPrint("✌️ Hook completed successfully.")
-        case let .failure(error):
+        if case let .failure(error) = result {
             switch error {
             case .noExecutableFileAtPath:
                 output.write(string: "\n💡 Did you know you can configure hooks for pomodoros? Check the README.\n")
@@ -94,5 +91,10 @@ public class TimerViewCLI {
                 output.write(string: "\n☹️ The pomodoro hook failed executing.\n")
             }
         }
+        #if DEBUG
+        if case .success = result {
+            debugPrint("✌️ Hook completed successfully.")
+        }
+        #endif
     }
 }
