@@ -13,7 +13,7 @@ open:
 	open Pomodoro.xcodeproj
 
 build:
-	swift build
+	swift build --skip-update
 
 lint:
 	swiftformat .
