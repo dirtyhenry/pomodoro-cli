@@ -8,6 +8,7 @@ enum Hook {
 
 extension Hook {
     // MARK: - Script Support of Hooks
+
     static let dotDirectoryName = ".pomodoro-cli"
 
     static let didStartScript = "didStart.sh"

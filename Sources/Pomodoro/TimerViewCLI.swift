@@ -38,9 +38,12 @@ public class TimerViewCLI {
     ///     * A string **with digits only** will be parsed as a number of **seconds**;
     ///     * A string **finishing with `m`** will be parsed as a number of **minutes**.
     ///     (example: `123` or `123m` or `123 m`)
-    public func start(durationAsString: String) {
+    public func start(durationAsString: String, message: String?) {
         do {
-            start(duration: try TimeInterval.fromHumanReadableString(durationAsString))
+            start(
+                duration: try TimeInterval.fromHumanReadableString(durationAsString),
+                message: message
+            )
         } catch {
             output.write(string: "Could not start the timer with interval \(durationAsString)")
         }
@@ -52,7 +55,7 @@ public class TimerViewCLI {
     ///     * A string **with digits only** will be parsed as a number of **seconds**;
     ///     * A string **finishing with `m`** will be parsed as a number of **minutes**.
     ///     (example: `123` or `123m` or `123 m`)
-    public func start(duration: TimeInterval) {
+    public func start(duration: TimeInterval, message _: String?) {
         let timerViewModel = TimerViewModel(timeInterval: duration)
         self.timerViewModel = timerViewModel
 
@@ -92,9 +95,9 @@ public class TimerViewCLI {
             }
         }
         #if DEBUG
-        if case .success = result {
-            debugPrint("✌️ Hook completed successfully.")
-        }
+            if case .success = result {
+                debugPrint("✌️ Hook completed successfully.")
+            }
         #endif
     }
 }
