@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TimerViewCLI Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/TimerViewCLI" class="dashAnchor"></a>
+    <a title="TimerViewCLI Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">Pomodoro Docs</a>
+          <span class="no-mobile"> (100% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">Pomodoro Reference</a>
+            <img id="carat" src="../img/carat.png" />
+          </span>
+          TimerViewCLI Class Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>TimerViewCLI</h1>
+                <div class="declaration">
+                  <div class="language">
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TimerViewCLI</span></code></pre>
+
+                  </div>
+                </div>
+              <p>A command line interface showing a timer.</p>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Creating%20a%20timer."></a>
+                  <a name="//apple_ref/swift/Section/Creating a timer." class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Creating%20a%20timer."></a>
+                    <h3 class="section-name"><p>Creating a timer.</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:8Pomodoro12TimerViewCLIC6outputACSo12NSFileHandleC_tcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(output:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:8Pomodoro12TimerViewCLIC6outputACSo12NSFileHandleC_tcfc">init(output:)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Creates a new instance of a timer.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">output</span><span class="p">:</span> <span class="kt">FileHandle</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>output</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>a <code>FileHandle</code> where the timer will be written out (most likely <code>FileHandle.standardOutput</code>)</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Starting%20the%20timer"></a>
+                  <a name="//apple_ref/swift/Section/Starting the timer" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Starting%20the%20timer"></a>
+                    <h3 class="section-name"><p>Starting the timer</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:8Pomodoro12TimerViewCLIC5start16durationAsStringySS_tF"></a>
+                      <a name="//apple_ref/swift/Method/start(durationAsString:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:8Pomodoro12TimerViewCLIC5start16durationAsStringySS_tF">start(durationAsString:)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Starts the timer for a duration described as a time interval string.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">(</span><span class="nv">durationAsString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>durationAsString</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the duration of the timer. Two kinds of strings are supported:
+
+<ul>
+<li>A string <strong>with digits only</strong> will be parsed as a number of <strong>seconds</strong>;</li>
+<li>A string <strong>finishing with <code>m</code></strong> will be parsed as a number of <strong>minutes</strong>.
+(example: <code>123</code> or <code>123m</code> or <code>123 m</code>)</li>
+</ul></p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:8Pomodoro12TimerViewCLIC5start8durationySd_tF"></a>
+                      <a name="//apple_ref/swift/Method/start(duration:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:8Pomodoro12TimerViewCLIC5start8durationySd_tF">start(duration:)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Starts the timer for the specified duration.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">start</span><span class="p">(</span><span class="nv">duration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>duration</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the duration of the string. Two kinds of strings are supported:
+
+<ul>
+<li>A string <strong>with digits only</strong> will be parsed as a number of <strong>seconds</strong>;</li>
+<li>A string <strong>finishing with <code>m</code></strong> will be parsed as a number of <strong>minutes</strong>.
+(example: <code>123</code> or <code>123m</code> or <code>123 m</code>)</li>
+</ul></p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/TimerViewCLI.html">TimerViewCLI</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://mickael.flochlay.com" target="_blank" rel="external">Mick F</a>. All rights reserved. (Last updated: 2020-02-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</div>
+</html>
