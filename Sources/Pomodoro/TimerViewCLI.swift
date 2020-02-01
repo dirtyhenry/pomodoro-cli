@@ -1,10 +1,3 @@
-//
-//  TimerViewCLI.swift
-//  pomodoro-cli
-//
-//  Created by Mickaël Floc'hlay on 06/11/2017.
-//
-
 import Foundation
 
 extension FileHandle {
