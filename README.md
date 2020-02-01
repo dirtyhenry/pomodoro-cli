@@ -12,13 +12,14 @@ When I started this project, I wrote a [blog post][blog-post] on my motivations 
 </div>
 
 ```
-➜ pomodoro-cli --help
-> Usage:
+➜ Usage: pomodoro-cli [options]
 
-    $ pomodoro-cli
+CLI pomodoro
 
 Options:
---duration [default: 25m] - The duration of the pomodoro in seconds (100) or in minutes (10m).
+  -d, --duration <value>    The duration of the pomodoro in seconds (100) or in minutes (10m) (default to 25m)
+  -h, --help                Show help information
+  -m, --message <value>     The intent of the pomodoro (example: email zero)
 ```
 
 ## Hooks
@@ -26,6 +27,10 @@ Options:
 Pomodoro can optionnaly run shell scripts when a pomodoro starts and/or finished.
 
 Sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/master/Resources/SampleHooks).
+
+## Journal
+
+A journal of pomodoros is created in `~/.pomodoro-cli/journal.yml`.
 
 ## Installation
 

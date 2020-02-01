@@ -20,12 +20,13 @@ lint:
 	swiftlint
 
 run-test:
-	.build/debug/PomodoroCLI --duration 10
+	.build/debug/PomodoroCLI --duration 5
 
 deploy:
 	swift build -c release --disable-sandbox
 	install ".build/release/PomodoroCLI" "$(bindir)/pomodoro-cli"
 	mkdir -p "$(HOME)/.pomodoro-cli"
+	touch "$(HOME)/.pomodoro-cli/journal.yml"
 	cp Resources/SampleHooks/did*.sh "$(HOME)/.pomodoro-cli"
 
 docs:
