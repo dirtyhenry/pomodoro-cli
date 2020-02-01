@@ -15,15 +15,19 @@ class PomodoroCommand: Command {
     var message: String?
 
     func execute() throws {
-        var pomodoroMessage: String? = message
-        if pomodoroMessage == nil {
-            pomodoroMessage = Input.readLine(prompt: "What’s the intent of this pomodoro?")
-        }
+        do {
+            var pomodoroMessage: String? = message
+            if pomodoroMessage == nil {
+                pomodoroMessage = Input.readLine(prompt: "\u{001B}[32m💁‍♀️ What’s the intent of this pomodoro?\u{001B}[m\n")
+            }
 
-        TimerViewCLI(output: FileHandle.standardOutput).start(
-            durationAsString: duration ?? durationDefault,
-            message: message
-        )
+            let durationAsTimeInterval = try TimeInterval.fromHumanReadableString(duration ?? durationDefault)
+
+            let pomodoro = PomodoroDescription(duration: durationAsTimeInterval, message: pomodoroMessage)
+            TimerViewCLI(output: FileHandle.standardOutput).start(pomodoro: pomodoro)
+        } catch {
+            print("Could not start the timer with interval \(String(describing: duration))")
+        }
     }
 }
 

@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Pomodoro",
+    platforms: [
+        .macOS(.v10_12),
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/jakeheis/SwiftCLI", from: "6.0.0"),

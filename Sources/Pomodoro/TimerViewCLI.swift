@@ -14,13 +14,6 @@ public class TimerViewCLI {
     var sleepTime: TimeInterval = 1
     let intervalBeforePuttingDisplayToSleep: TimeInterval = 10
 
-    let dateFormatter: DateFormatter = {
-        let result = DateFormatter()
-        result.dateStyle = .short
-        result.timeStyle = .medium
-        return result
-    }()
-
     // MARK: - Creating a timer.
 
     /// Creates a new instance of a timer.
@@ -32,47 +25,26 @@ public class TimerViewCLI {
 
     // MARK: - Starting the timer
 
-    /// Starts the timer for a duration described as a time interval string.
-    ///
-    /// - Parameter durationAsString: the duration of the timer. Two kinds of strings are supported:
-    ///     * A string **with digits only** will be parsed as a number of **seconds**;
-    ///     * A string **finishing with `m`** will be parsed as a number of **minutes**.
-    ///     (example: `123` or `123m` or `123 m`)
-    public func start(durationAsString: String, message: String?) {
-        do {
-            start(
-                duration: try TimeInterval.fromHumanReadableString(durationAsString),
-                message: message
-            )
-        } catch {
-            output.write(string: "Could not start the timer with interval \(durationAsString)")
-        }
-    }
-
     /// Starts the timer for the specified duration.
     ///
-    /// - Parameter duration: the duration of the string. Two kinds of strings are supported:
-    ///     * A string **with digits only** will be parsed as a number of **seconds**;
-    ///     * A string **finishing with `m`** will be parsed as a number of **minutes**.
-    ///     (example: `123` or `123m` or `123 m`)
-    public func start(duration: TimeInterval, message _: String?) {
-        let timerViewModel = TimerViewModel(timeInterval: duration)
+    /// - Parameter pomodoro: the description of the Pomodoro.
+    public func start(pomodoro: PomodoroDescription) {
+        let timerViewModel = TimerViewModel(timeInterval: pomodoro.duration)
         self.timerViewModel = timerViewModel
 
         Hook.didStart.execute(completionHandler: hookCompletionHandler)
 
-        let beginning = dateFormatter.string(from: timerViewModel.outputs.startDate)
-        let end = dateFormatter.string(from: timerViewModel.outputs.endDate)
-        output.write(string: "🍅 from \(beginning) to \(end)\n")
-        sleepTime = duration / TimeInterval(outputLength)
+        output.write(string: "🍅 from \(pomodoro.formattedStartDate) to \(pomodoro.formattedEndDate)\n")
+        sleepTime = pomodoro.duration / TimeInterval(outputLength)
         while !timerViewModel.outputs.progress.isFinished {
             outputLine(for: timerViewModel.outputs.progress.fractionCompleted)
             Thread.sleep(forTimeInterval: sleepTime)
         }
         outputLine(for: 1.0)
-        output.write(string: "\nTimer ended\n")
+        output.write(string: "\nPomodoro ended\n")
 
         Hook.didFinish.execute(completionHandler: hookCompletionHandler)
+        LogWriter().writeLog(pomodoroDescription: pomodoro)
 
         exit(EXIT_SUCCESS)
     }
