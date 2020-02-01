@@ -7,5 +7,5 @@ struct Environment {
         .homeDirectoryForCurrentUser
         .appendingPathComponent(dotDirectoryName)
     
-    static let hooksOn = false
+    static let hooksOn = true
 }
