@@ -56,19 +56,23 @@
   <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/master/Resources/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
   </a>
 </div>
-<pre class="highlight plaintext"><code>➜ pomodoro-cli --help
-&gt; Usage:
+<pre class="highlight plaintext"><code>➜ Usage: pomodoro-cli [options]
 
-    $ pomodoro-cli
+CLI pomodoro
 
 Options:
---duration [default: 25m] - The duration of the pomodoro in seconds (100) or in minutes (10m).
+  -d, --duration &lt;value&gt;    The duration of the pomodoro in seconds (100) or in minutes (10m) (default to 25m)
+  -h, --help                Show help information
+  -m, --message &lt;value&gt;     The intent of the pomodoro (example: email zero)
 </code></pre>
 <h2 id='hooks' class='heading'>Hooks</h2>
 
 <p>Pomodoro can optionnaly run shell scripts when a pomodoro starts and/or finished.</p>
 
 <p>Sample scripts can be found in <a href="https://github.com/dirtyhenry/pomodoro-cli/blob/master/Resources/SampleHooks">the <code>SampleHooks</code> directory</a>.</p>
+<h2 id='journal' class='heading'>Journal</h2>
+
+<p>A journal of pomodoros is created in <code>~/.pomodoro-cli/journal.yml</code>.</p>
 <h2 id='installation' class='heading'>Installation</h2>
 
 <p>To install from sources, <a href="https://swift.org/getting-started/">Swift</a> is required.</p>
@@ -102,6 +106,22 @@ Options:
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
                   <a href="Classes/TimerViewCLI.html">TimerViewCLI</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Extensions/TimeInterval.html">TimeInterval</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Structs/PomodoroDescription.html">PomodoroDescription</a>
                 </li>
               </ul>
             </li>
