@@ -18,7 +18,7 @@ class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOu
     let timerDuration: TimeInterval
 
     var endDate: Date {
-        return startDate.addingTimeInterval(timerDuration)
+        startDate.addingTimeInterval(timerDuration)
     }
 
     var progress: Progress {
@@ -35,6 +35,6 @@ class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOu
 
     // MARK: - Define inputs & outputs
 
-    var inputs: TimerViewModelInputs { return self }
-    var outputs: TimerViewModelOutputs { return self }
+    var inputs: TimerViewModelInputs { self }
+    var outputs: TimerViewModelOutputs { self }
 }

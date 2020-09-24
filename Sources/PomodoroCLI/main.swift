@@ -18,7 +18,9 @@ class PomodoroCommand: Command {
         do {
             var pomodoroMessage: String? = message
             if pomodoroMessage == nil {
-                pomodoroMessage = Input.readLine(prompt: "\u{001B}[32m💁‍♀️ What’s the intent of this pomodoro?\u{001B}[m\n")
+                pomodoroMessage = Input.readLine(
+                    prompt: "\u{001B}[32m💁‍♀️ What’s the intent of this pomodoro?\u{001B}[m\n"
+                )
             }
 
             let durationAsTimeInterval = try TimeInterval.fromHumanReadableString(duration ?? durationDefault)
