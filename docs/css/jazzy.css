@@ -52,9 +52,14 @@ pre, code {
   color: #777;
   word-wrap: normal; }
 
+pre {
+  line-height: 1.6; }
+
 a {
   color: #0088cc;
   text-decoration: none; }
+  a code {
+    color: inherit; }
 
 ul {
   padding-left: 15px; }
@@ -218,6 +223,7 @@ header {
   margin: 0; }
 
 .task-group-section {
+  margin-top: 10px;
   border-top: 1px solid #e2e2e2; }
 
 .task-group {
@@ -261,13 +267,15 @@ header {
     background-color: transparent;
     padding: 0; }
   .item .token, .item .direct-link {
+    display: inline-block;
+    text-indent: -20px;
     padding-left: 3px;
-    margin-left: 35px;
+    margin-left: 55px;
     transition: all 300ms; }
   .item .discouraged {
     text-decoration: line-through; }
   .item .token-open {
-    margin-left: 25px; }
+    margin-left: 45px; }
   .item .declaration-note {
     font-size: .85em;
     color: gray;
