@@ -10,7 +10,7 @@ public struct PomodoroDescription {
     }()
 
     // MARK: - Creating a pomodoro
-    
+
     /// Creates a new pomodoro.
     /// - Parameters:
     ///     - duration: the duration of the pomodoro.
@@ -26,15 +26,15 @@ public struct PomodoroDescription {
     let message: String?
 
     var endDate: Date {
-        return startDate.addingTimeInterval(duration)
+        startDate.addingTimeInterval(duration)
     }
 
     var formattedStartDate: String {
-        return PomodoroDescription.dateFormatter.string(from: startDate)
+        PomodoroDescription.dateFormatter.string(from: startDate)
     }
 
     var formattedEndDate: String {
-        return PomodoroDescription.dateFormatter.string(from: endDate)
+        PomodoroDescription.dateFormatter.string(from: endDate)
     }
 }
 
@@ -45,7 +45,7 @@ extension PomodoroDescription: CustomStringConvertible {
             "-",
             "  - startDate: \(formattedStartDate)",
             "  - endDate: \(formattedEndDate)",
-            "  - message: \(message ?? "n/a")",
+            "  - message: \(message ?? "n/a")"
         ]
         return lines.joined(separator: "\n").appending("\n")
     }

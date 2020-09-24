@@ -5,7 +5,9 @@ struct LogWriter {
 
     func writeLog(pomodoroDescription: PomodoroDescription) {
         do {
-            let journalFileHandle = try FileHandle(forWritingTo: Environment.dotDirectory.appendingPathComponent(LogWriter.journalFile))
+            let journalFileHandle = try FileHandle(
+                forWritingTo: Environment.dotDirectory.appendingPathComponent(LogWriter.journalFile)
+            )
 
             journalFileHandle.seekToEndOfFile()
             journalFileHandle.write(string: pomodoroDescription.description)

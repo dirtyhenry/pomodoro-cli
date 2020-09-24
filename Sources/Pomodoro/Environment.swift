@@ -6,6 +6,6 @@ struct Environment {
     static let dotDirectory = FileManager.default
         .homeDirectoryForCurrentUser
         .appendingPathComponent(dotDirectoryName)
-    
+
     static let hooksOn = true
 }

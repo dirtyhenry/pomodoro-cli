@@ -1,1 +1,4 @@
 --exclude .build
+--disable trailingCommas
+--disable wrapMultilineStatementBraces
+--wraparguments before-first

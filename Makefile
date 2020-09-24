@@ -6,11 +6,10 @@ bindir = $(prefix)/bin
 install:
 	brew bundle
 	swift package update
-	swift package generate-xcodeproj
 	bundle install
 
 open:
-	open Pomodoro.xcodeproj
+	open Package.swift
 
 build:
 	swift build --skip-update
