@@ -22,7 +22,7 @@ extension Hook {
     }
 
     private func canBeExecuted(completionHandler: (Bool, String?) -> Void) {
-        _ = scriptURL.withUnsafeFileSystemRepresentation { cString in
+        scriptURL.withUnsafeFileSystemRepresentation { cString in
             if let scriptPath = cString.map({ String(cString: $0) }) {
                 if FileManager.default.isExecutableFile(atPath: scriptPath) {
                     completionHandler(true, scriptPath)
