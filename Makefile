@@ -32,4 +32,4 @@ docs:
 	./scripts/generateDocs.sh
 
 clean:
-	rm -rf .build
+	rm -rf .build .swiftpm
