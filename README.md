@@ -7,7 +7,7 @@ When I started this project, I wrote a [blog post][blog-post] on my motivations 
 ## Usage
 
 <div align="center">
-  <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/master/Resources/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
+  <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
   </a>
 </div>
 
@@ -41,7 +41,7 @@ Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/), and h
 - `make install` will install development dependencies;
 - `make deploy` will build a release binary, move it to `/usr/local/bin` by default, with default hooks installed;
 
-Check out [`Makefile`](https://github.com/dirtyhenry/pomodoro-cli/blob/master/Makefile) for more development convenience commands.
+Check out [`Makefile`](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Makefile) for more development convenience commands.
 
 ## Contributing
 
