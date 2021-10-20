@@ -4,7 +4,6 @@ bindir = $(prefix)/bin
 .PHONY: docs
 
 install:
-	brew bundle
 	swift package update
 	bundle install
 

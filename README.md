@@ -26,7 +26,7 @@ Options:
 
 Pomodoro can optionnaly run shell scripts when a pomodoro starts and/or finishes.
 
-Sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/master/Resources/SampleHooks).
+Sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/SampleHooks).
 
 ## Journal
 
@@ -36,7 +36,7 @@ A journal of pomodoros is created in `~/.pomodoro-cli/journal.yml`.
 
 To install from sources, [Swift](https://swift.org/getting-started/) is required.
 
-[Homebrew](https://brew.sh/) and [Ruby](https://www.ruby-lang.org/fr/)/[Bundler](https://bundler.io) are recommended for an easy installation.
+Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/), and having installed [Ruby](https://www.ruby-lang.org/fr/)/[Bundler](https://bundler.io) are recommended for an easy installation.
 
 - `make install` will install development dependencies;
 - `make deploy` will build a release binary, move it to `/usr/local/bin` by default, with default hooks installed;
