@@ -6,6 +6,6 @@
 # Say with an Italian accent that the Pomodoro finished. 
 /usr/bin/say --voice=Alice "Il pomodoro è finito."
 
-# Turn off the display after a 10 seconds delay. 
-sleep 10s
+# Turn off the display after a 10 seconds delay.
+sleep 10
 /usr/bin/pmset displaysleepnow
