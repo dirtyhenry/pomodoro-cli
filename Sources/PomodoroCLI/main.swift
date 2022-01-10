@@ -4,10 +4,10 @@ import Pomodoro
 import TSCBasic
 
 struct PomodoroCLI: ParsableCommand {
-    @Option(help: "The duration of the pomodoro in seconds (100) or in minutes (10m)")
+    @Option(name: .shortAndLong, help: "The duration of the pomodoro in seconds (100) or in minutes (10m)")
     var duration: String = "25m"
 
-    @Option(help: "The intent of the pomodoro (example: email zero)")
+    @Option(name: .shortAndLong, help: "The intent of the pomodoro (example: email zero)")
     var message: String?
 
     func run() throws {
