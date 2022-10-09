@@ -1,4 +1,4 @@
-# 🍅 Pomodoro CLI
+# ``Pomodoro``
 
 Pomodoro is a command-line interface to run timers from your terminal for people using the [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
 

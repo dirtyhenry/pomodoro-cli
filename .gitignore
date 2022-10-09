@@ -4,3 +4,6 @@
 /Packages
 /*.xcodeproj
 xcuserdata/
+
+# Local documentation
+.Pomodoro.doccarchive
