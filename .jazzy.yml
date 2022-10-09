@@ -1,7 +1,0 @@
----
-clean: true
-author: Mick F
-author_url: https://mickaelflochlay.com
-github_url: https://github.com/dirtyhenry/pomodoro-cli
-theme: jony
-module: Pomodoro

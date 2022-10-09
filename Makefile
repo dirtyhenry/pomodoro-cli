@@ -28,7 +28,12 @@ deploy:
 	cp Resources/SampleHooks/did*.sh "$(HOME)/.pomodoro-cli"
 
 docs:
-	./scripts/generateDocs.sh
+	xcodebuild docbuild -scheme "Pomodoro" -derivedDataPath tmp/derivedDataPath -destination platform=macOS
+	rsync -r tmp/derivedDataPath/Build/Products/Debug/Pomodoro.doccarchive/ .Pomodoro.doccarchive
+	rm -rf tmp/
 
 clean:
 	rm -rf .build .swiftpm
+
+serve-docs:
+	serve --single .Pomodoro.doccarchive
