@@ -38,7 +38,7 @@ jobs:
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting ../DerivedData/Build/Products/Debug/Pomodoro.doccarchive \
             --output-path _site \
-            --hosting-base-path /
+            --hosting-base-path /pomodoro-cli/
       - name: Create Custom index.html
         run: |
           rm _site/index.html
