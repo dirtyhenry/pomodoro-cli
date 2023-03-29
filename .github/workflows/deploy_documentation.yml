@@ -2,7 +2,10 @@ name: Deploy Documentation
 
 # Manual trigger
 # 📜 https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 # 📜 https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch
