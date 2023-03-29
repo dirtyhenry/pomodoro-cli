@@ -34,6 +34,8 @@ A journal of pomodoros is created in `~/.pomodoro-cli/journal.yml`.
 
 ## Installation
 
+### From Source
+
 To install from sources, [Swift](https://swift.org/getting-started/) is required.
 
 Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/), and having installed [Ruby](https://www.ruby-lang.org/fr/)/[Bundler](https://bundler.io) are recommended for an easy installation.
@@ -42,6 +44,16 @@ Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/), and h
 - `make deploy` will build a release binary, move it to `/usr/local/bin` by default, with default hooks installed;
 
 Check out [`Makefile`](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Makefile) for more development convenience commands.
+
+### From Distribution Images
+
+The `.dmg` files are created via:
+
+```
+make clean notarize
+# and upon successful feedback from the Apple notary service:
+make image
+```
 
 ## Contributing
 
