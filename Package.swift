@@ -7,6 +7,9 @@ let package = Package(
     platforms: [
         .macOS(.v10_12),
     ],
+    products: [
+        .executable(name: "pomodoro-cli", targets: ["PomodoroCLI"])
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.4"),
         .package(url: "https://github.com/apple/swift-tools-support-core", from: "0.2.7")
@@ -16,7 +19,7 @@ let package = Package(
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             .product(name: "SwiftToolsSupport-auto", package: "swift-tools-support-core")
         ]),
-        .target(name: "PomodoroCLI", dependencies: ["Pomodoro"]),
+        .executableTarget(name: "PomodoroCLI", dependencies: ["Pomodoro"]),
         .testTarget(name: "PomodoroTests", dependencies: ["Pomodoro"]),
     ]
 )

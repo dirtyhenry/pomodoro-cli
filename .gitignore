@@ -7,3 +7,7 @@ xcuserdata/
 
 # Local documentation
 .Pomodoro.doccarchive
+
+# Build I/O
+.env
+pkg/
