@@ -91,12 +91,12 @@ package: ${PKG}
 
 .PHONY: notarize
 notarize: ${PKG}
-	xcrun altool --notarize-app \
-               --primary-bundle-id ${BUNDLE_ID} \
-               --username "${USERNAME}" \
-               --password "${PASSWORD_ID}" \
-			   --asc-provider "${ASC_PROVIDER}" \
-               --file "${PKG}"
+	xcrun notarytool submit \
+		--apple-id "${USERNAME}" \
+		--password "${PASSWORD_ID}" \
+		--team-id "${TEAM_ID}" \
+		--wait \
+		"${PKG}"
                
 .PHONY: staple
 staple:
