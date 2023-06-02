@@ -13,6 +13,7 @@ PKG = ${PKG_DMG_ROOT}/${PRODUCT}-${VERSION}.pkg
 BUNDLE_ID = ${REVERSED_DOMAIN}.${PRODUCT}
 
 # Load secrets
+$(shell touch .env)
 include .env
 export $(shell sed 's/=.*//' .env)
 
@@ -25,7 +26,6 @@ bindir = $(prefix)/bin
 
 install:
 	swift package update
-	bundle install
 
 open:
 	open Package.swift
@@ -37,12 +37,12 @@ lint:
 	swiftformat .
 	swiftlint
 
-run-test:
-	.build/debug/PomodoroCLI --duration 5
+run-test: build
+	.build/debug/${PRODUCT} --duration 5
 
 deploy:
 	swift build -c release --disable-sandbox
-	install ".build/release/PomodoroCLI" "$(bindir)/pomodoro-cli"
+	sudo install ".build/release/${PRODUCT}" "$(bindir)/pomodoro-cli"
 	mkdir -p "$(HOME)/.pomodoro-cli"
 	touch "$(HOME)/.pomodoro-cli/journal.yml"
 	cp Resources/SampleHooks/did*.sh "$(HOME)/.pomodoro-cli"
