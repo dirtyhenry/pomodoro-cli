@@ -1,7 +1,37 @@
 import ArgumentParser
 import Foundation
 import Pomodoro
-import TSCBasic
+
+/// Terminal color choices.
+public enum TerminalColor {
+    case noColor
+
+    case red
+    case green
+    case yellow
+    case cyan
+
+    case white
+    case black
+    case gray
+
+    /// Returns the color code which can be prefixed on a string to display it in that color.
+    fileprivate var string: String {
+        switch self {
+            case .noColor: return ""
+            case .red: return "\u{001B}[31m"
+            case .green: return "\u{001B}[32m"
+            case .yellow: return "\u{001B}[33m"
+            case .cyan: return "\u{001B}[36m"
+            case .white: return "\u{001B}[37m"
+            case .black: return "\u{001B}[30m"
+            case .gray: return "\u{001B}[30;1m"
+        }
+    }
+}
+
+/// Code to end any currently active wrapping.
+private let resetString = "\u{001B}[0m"
 
 struct PomodoroCLI: ParsableCommand {
     @Option(name: .shortAndLong, help: "The duration of the pomodoro in seconds (100) or in minutes (10m)")
@@ -12,13 +42,13 @@ struct PomodoroCLI: ParsableCommand {
 
     func run() throws {
         do {
-            var pomodoroMessage: String? = message
+            let pomodoroMessage: String
 
-            if pomodoroMessage == nil {
-                let terminalController = TerminalController(stream: stdoutStream)
-                terminalController?.write("💁‍♀️ What is the intent of this pomodoro?", inColor: .green)
-                terminalController?.endLine()
-                pomodoroMessage = readLine()
+            if let message = self.message {
+                pomodoroMessage = message
+            } else {
+                print("\(TerminalColor.green.string)💁‍♀️ What is the intent of this pomodoro?\(resetString)")
+                pomodoroMessage = readLine() ?? ""
             }
 
             let durationAsTimeInterval = try TimeInterval.fromHumanReadableString(duration)
