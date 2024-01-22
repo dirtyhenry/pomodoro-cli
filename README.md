@@ -24,7 +24,7 @@ Options:
 
 ## Hooks
 
-Pomodoro can optionnaly run shell scripts when a pomodoro starts and/or finishes.
+Pomodoro can optionally run shell scripts when a pomodoro starts and/or finishes.
 
 Sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/SampleHooks).
 
