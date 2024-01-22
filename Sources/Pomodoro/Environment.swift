@@ -1,6 +1,6 @@
 import Foundation
 
-struct Environment {
+enum Environment {
     static let dotDirectoryName = ".pomodoro-cli"
 
     static let dotDirectory = FileManager.default

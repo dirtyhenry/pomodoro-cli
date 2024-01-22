@@ -1,7 +1,7 @@
 # 📜 https://forums.swift.org/t/how-to-distribute-a-swiftpm-executable-on-macos/47127/5
 # 📜 https://developer.apple.com/developer-id/
 
-VERSION = 1.1.0
+VERSION = 1.2.0
 PRODUCT = pomodoro-cli
 
 BINARY = .build/apple/Products/Release/${PRODUCT}
