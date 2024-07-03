@@ -40,6 +40,8 @@ format:
 lint:
 	swiftformat --lint .
 	swiftlint lint .
+	shellcheck Resources/SampleHooks/didFinish.sh
+	shellcheck Resources/SampleHooks/didStart.sh
 
 run-test: build
 	.build/debug/${PRODUCT} --duration 5
