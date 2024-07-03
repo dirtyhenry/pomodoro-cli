@@ -33,9 +33,15 @@ open:
 build:
 	swift build --skip-update
 
+format:
+	swiftformat --verbose .
+	swiftlint lint --autocorrect .
+	
 lint:
-	swiftformat .
-	swiftlint
+	swiftformat --lint .
+	swiftlint lint .
+	shellcheck Resources/SampleHooks/didFinish.sh
+	shellcheck Resources/SampleHooks/didStart.sh
 
 run-test: build
 	.build/debug/${PRODUCT} --duration 5

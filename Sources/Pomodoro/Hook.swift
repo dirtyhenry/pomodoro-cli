@@ -1,3 +1,4 @@
+import Blocks
 import Foundation
 
 /// A hook is a moment of a pomodoro lifecyle where a script can be executed.
@@ -33,18 +34,26 @@ extension Hook {
         }
     }
 
-    func execute(completionHandler: (Result<Void, HookError>) -> Void) {
+    func execute(description: PomodoroDescription, completionHandler: (Result<URL, HookError>) -> Void) {
         guard Environment.hooksOn else {
             return
         }
 
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
         canBeExecuted { executable, path in
             if executable, let path = path {
-                let task = Process.launchedProcess(launchPath: path, arguments: [])
+                let task = Process.launchedProcess(launchPath: path, arguments: [
+                    formatter.string(from: description.startDate),
+                    formatter.string(from: description.endDate),
+                    description.duration.description,
+                    description.message ?? "n/a"
+                ])
                 task.waitUntilExit()
                 let status = task.terminationStatus
                 if status == 0 {
-                    completionHandler(.success(()))
+                    completionHandler(.success(self.scriptURL))
                 } else {
                     completionHandler(.failure(.hookExecutedWithErroredTerminationStatus(status)))
                 }

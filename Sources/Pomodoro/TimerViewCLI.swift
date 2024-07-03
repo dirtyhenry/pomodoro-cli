@@ -32,7 +32,7 @@ public class TimerViewCLI {
         let timerViewModel = TimerViewModel(timeInterval: pomodoro.duration)
         self.timerViewModel = timerViewModel
 
-        Hook.didStart.execute(completionHandler: hookCompletionHandler)
+        Hook.didStart.execute(description: pomodoro, completionHandler: hookCompletionHandler)
 
         output.write(string: "🍅 from \(pomodoro.formattedStartDate) to \(pomodoro.formattedEndDate)\n")
         sleepTime = pomodoro.duration / TimeInterval(outputLength)
@@ -43,7 +43,7 @@ public class TimerViewCLI {
         outputLine(for: 1.0)
         output.write(string: "\nPomodoro ended\n")
 
-        Hook.didFinish.execute(completionHandler: hookCompletionHandler)
+        Hook.didFinish.execute(description: pomodoro, completionHandler: hookCompletionHandler)
         LogWriter().writeLog(pomodoroDescription: pomodoro)
 
         exit(EXIT_SUCCESS)
@@ -57,7 +57,7 @@ public class TimerViewCLI {
         output.write(string: "[\(completedString)\(remainingString)]\r")
     }
 
-    private func hookCompletionHandler(result: Result<Void, HookError>) {
+    private func hookCompletionHandler(result: Result<URL, HookError>) {
         if case let .failure(error) = result {
             switch error {
             case .noExecutableFileAtPath:
@@ -67,8 +67,8 @@ public class TimerViewCLI {
             }
         }
         #if DEBUG
-            if case .success = result {
-                debugPrint("✌️ Hook completed successfully.")
+            if case let .success(hookURL) = result {
+                debugPrint("✌️ Hook completed successfully (location: \(hookURL).")
             }
         #endif
     }
