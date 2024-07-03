@@ -33,9 +33,13 @@ open:
 build:
 	swift build --skip-update
 
+format:
+	swiftformat --verbose .
+	swiftlint lint --autocorrect .
+	
 lint:
-	swiftformat .
-	swiftlint
+	swiftformat --lint .
+	swiftlint lint .
 
 run-test: build
 	.build/debug/${PRODUCT} --duration 5
