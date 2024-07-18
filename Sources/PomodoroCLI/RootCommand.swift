@@ -12,6 +12,7 @@ struct PomodoroCLI: ParsableCommand {
     var message: String?
 
     func run() throws {
+        installSignalHandler()
         guard let durationAsTimeInterval = TimeIntervalFormatter().timeInterval(from: duration) else {
             CLIUtils.write(message: "Invalid duration: \(duration)")
             return
@@ -28,5 +29,20 @@ struct PomodoroCLI: ParsableCommand {
 
         let pomodoro = PomodoroDescription(duration: durationAsTimeInterval, message: pomodoroMessage)
         TimerViewCLI(output: FileHandle.standardOutput).start(pomodoro: pomodoro)
+    }
+    
+    func installSignalHandler() {
+        signal(SIGINT, SIG_IGN)
+        let interruptSignalSource = DispatchSource.makeSignalSource(signal: SIGINT)
+
+        // Add the event handler to the source
+        interruptSignalSource.setEventHandler {
+            // Restore default signal handling, which means killing the app
+            signal(SIGINT, SIG_DFL)
+
+            CLIUtils.write(message: "interrupted -- halting", foreground: .red)
+//            Self.exit(withError: SimpleMessageError(message: "CTRL-C"))
+        }
+        interruptSignalSource.resume()
     }
 }
