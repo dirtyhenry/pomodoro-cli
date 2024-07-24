@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser",
-        "state": {
-          "branch": null,
-          "revision": "0fbc8848e389af3bb55c182bc19ca9d5dc2f255b",
-          "version": "1.4.0"
-        }
-      },
-      {
-        "package": "swift-blocks",
-        "repositoryURL": "https://github.com/dirtyhenry/swift-blocks",
-        "state": {
-          "branch": null,
-          "revision": "8a15ed6586db12bd404a458ee1c64406943d28e9",
-          "version": "0.4.0"
-        }
+  "pins" : [
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-blocks",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dirtyhenry/swift-blocks",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ee7ff8205853d96feb0ea2a395835b8dc243897f"
+      }
+    }
+  ],
+  "version" : 2
 }
