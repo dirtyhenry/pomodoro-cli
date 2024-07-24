@@ -10,6 +10,9 @@ struct PomodoroCLI: ParsableCommand {
 
     @Option(name: .shortAndLong, help: "The intent of the pomodoro (example: email zero)")
     var message: String?
+    
+    @Flag(name: .shortAndLong, help: "Exit right away (escape-hatch to run hooks only)")
+    var catchUp: Bool = false
 
     func run() throws {
         guard let durationAsTimeInterval = TimeIntervalFormatter().timeInterval(from: duration) else {
@@ -27,6 +30,6 @@ struct PomodoroCLI: ParsableCommand {
         }
 
         let pomodoro = PomodoroDescription(duration: durationAsTimeInterval, message: pomodoroMessage)
-        TimerViewCLI(output: FileHandle.standardOutput).start(pomodoro: pomodoro)
+        TimerViewCLI(output: FileHandle.standardOutput).start(pomodoro: pomodoro, shouldExitRightAway: catchUp)
     }
 }
