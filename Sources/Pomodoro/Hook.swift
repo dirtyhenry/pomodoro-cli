@@ -16,9 +16,9 @@ extension Hook {
     private var scriptURL: URL {
         switch self {
         case .didStart:
-            return Environment.dotDirectory.appendingPathComponent(Hook.didStartScript)
+            Environment.dotDirectory.appendingPathComponent(Hook.didStartScript)
         case .didFinish:
-            return Environment.dotDirectory.appendingPathComponent(Hook.didFinishScript)
+            Environment.dotDirectory.appendingPathComponent(Hook.didFinishScript)
         }
     }
 
@@ -43,7 +43,7 @@ extension Hook {
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
         canBeExecuted { executable, path in
-            if executable, let path = path {
+            if executable, let path {
                 let task = Process.launchedProcess(launchPath: path, arguments: [
                     formatter.string(from: description.startDate),
                     formatter.string(from: description.endDate),

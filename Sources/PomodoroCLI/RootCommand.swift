@@ -10,7 +10,7 @@ struct PomodoroCLI: ParsableCommand {
 
     @Option(name: .shortAndLong, help: "The intent of the pomodoro (example: email zero)")
     var message: String?
-    
+
     @Flag(name: .shortAndLong, help: "Exit right away (escape-hatch to run hooks only)")
     var catchUp: Bool = false
 
@@ -22,7 +22,7 @@ struct PomodoroCLI: ParsableCommand {
 
         let pomodoroMessage: String
 
-        if let message = message {
+        if let message {
             pomodoroMessage = message
         } else {
             CLIUtils.write(message: "💁‍♀️ What is the intent of this pomodoro?", foreground: .green)
