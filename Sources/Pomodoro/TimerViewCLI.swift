@@ -28,20 +28,22 @@ public class TimerViewCLI {
     /// Starts the timer for the specified duration.
     ///
     /// - Parameter pomodoro: the description of the Pomodoro.
-    public func start(pomodoro: PomodoroDescription) {
-        let timerViewModel = TimerViewModel(timeInterval: pomodoro.duration)
-        self.timerViewModel = timerViewModel
+    public func start(pomodoro: PomodoroDescription, shouldExitRightAway: Bool = false) {
+        if !shouldExitRightAway {
+            let timerViewModel = TimerViewModel(timeInterval: pomodoro.duration)
+            self.timerViewModel = timerViewModel
 
-        Hook.didStart.execute(description: pomodoro, completionHandler: hookCompletionHandler)
+            Hook.didStart.execute(description: pomodoro, completionHandler: hookCompletionHandler)
 
-        output.write(string: "🍅 from \(pomodoro.formattedStartDate) to \(pomodoro.formattedEndDate)\n")
-        sleepTime = pomodoro.duration / TimeInterval(outputLength)
-        while !timerViewModel.outputs.progress.isFinished {
-            outputLine(for: timerViewModel.outputs.progress.fractionCompleted)
-            Thread.sleep(forTimeInterval: sleepTime)
+            output.write(string: "🍅 from \(pomodoro.formattedStartDate) to \(pomodoro.formattedEndDate)\n")
+            sleepTime = pomodoro.duration / TimeInterval(outputLength)
+            while !timerViewModel.outputs.progress.isFinished {
+                outputLine(for: timerViewModel.outputs.progress.fractionCompleted)
+                Thread.sleep(forTimeInterval: sleepTime)
+            }
+            outputLine(for: 1.0)
+            output.write(string: "\nPomodoro ended\n")
         }
-        outputLine(for: 1.0)
-        output.write(string: "\nPomodoro ended\n")
 
         Hook.didFinish.execute(description: pomodoro, completionHandler: hookCompletionHandler)
         LogWriter().writeLog(pomodoroDescription: pomodoro)
