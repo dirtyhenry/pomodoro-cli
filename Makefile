@@ -40,8 +40,10 @@ format:
 lint:
 	swiftformat --lint .
 	swiftlint lint .
-	shellcheck Resources/SampleHooks/didFinish.sh
-	shellcheck Resources/SampleHooks/didStart.sh
+	shellcheck Resources/SampleHooks/sample-pomodoro-finish.sh
+	shellcheck Resources/SampleHooks/sample-pomodoro-start.sh
+	shellcheck Resources/SampleHooks/mickf-pomodoro-finish.sh
+	shellcheck Resources/SampleHooks/mickf-pomodoro-start.sh
 
 run-test: build
 	.build/debug/${PRODUCT} --duration 5
@@ -51,7 +53,13 @@ deploy:
 	sudo install ".build/release/${PRODUCT}" "$(bindir)/pomodoro-cli"
 	mkdir -p "$(HOME)/.pomodoro-cli"
 	touch "$(HOME)/.pomodoro-cli/journal.yml"
-	cp Resources/SampleHooks/did*.sh "$(HOME)/.pomodoro-cli"
+	cp Resources/SampleHooks/sample-pomodoro-finish.sh "$(HOME)/.pomodoro-cli/pomodoro-finish.sh"
+	cp Resources/SampleHooks/sample-pomodoro-start.sh "$(HOME)/.pomodoro-cli/pomodoro-start.sh"
+
+deploy-my-hooks:
+	cp Resources/SampleHooks/mickf-pomodoro-finish.sh "$(HOME)/.pomodoro-cli/pomodoro-finish.sh"
+	cp Resources/SampleHooks/mickf-pomodoro-start.sh "$(HOME)/.pomodoro-cli/pomodoro-start.sh"
+	cp Resources/SampleHooks/notify.js "$(HOME)/.pomodoro-cli/notify.js"
 
 docs:
 	xcodebuild docbuild -scheme "Pomodoro" -derivedDataPath tmp/derivedDataPath -destination platform=macOS

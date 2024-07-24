@@ -11,7 +11,7 @@ struct PomodoroCLI: ParsableCommand {
     @Option(name: .shortAndLong, help: "The intent of the pomodoro (example: email zero)")
     var message: String?
 
-    @Flag(name: .shortAndLong, help: "Exit right away (escape-hatch to run hooks only)")
+    @Flag(name: .shortAndLong, help: "Exit right away (escape-hatch to run didFinish hook only)")
     var catchUp: Bool = false
 
     func run() throws {

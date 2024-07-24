@@ -10,8 +10,8 @@ enum Hook {
 extension Hook {
     // MARK: - Script Support of Hooks
 
-    static let didStartScript = "didStart.sh"
-    static let didFinishScript = "didFinish.sh"
+    static let didStartScript = "pomodoro-start.sh"
+    static let didFinishScript = "pomodoro-finish.sh"
 
     private var scriptURL: URL {
         switch self {
