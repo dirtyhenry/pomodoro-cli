@@ -5,18 +5,18 @@ on:
   pull_request:
     branches: [main]
 
+############################################
+# Grant status permission for MULTI_STATUS #
+############################################
+permissions:
+  contents: read
+  packages: read
+  statuses: write
+
 jobs:
   build:
     name: Lint Code Base
     runs-on: ubuntu-latest
-
-    ############################################
-    # Grant status permission for MULTI_STATUS #
-    ############################################
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
 
     ##################
     # Load all steps #
