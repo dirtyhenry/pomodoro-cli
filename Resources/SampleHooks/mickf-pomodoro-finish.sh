@@ -32,6 +32,7 @@ VALUES ('$1', '$2', '$4');
 EOF
 
 osascript -l JavaScript /Users/mick/.pomodoro-cli/notify.js "🍅 Pomodoro" "Completed" "$4" "Blow"
+afplay ~/Documents/Private/Pop\ Culture/ca-va-couper-cheri.mp3
 
 # Turn off the display after a 5 seconds delay.
 sleep 5
