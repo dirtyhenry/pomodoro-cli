@@ -65,5 +65,4 @@ Please make sure to update tests as appropriate.
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-[blog-post]: https://bootstragram.com/blog/swift-command-line-pomodoro/
-[bootstragram]: https://bootstragram.com
+[blog-post]: https://mickf.net/tech/swift-command-line-pomodoro/
