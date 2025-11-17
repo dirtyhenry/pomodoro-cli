@@ -14,10 +14,21 @@ struct PomodoroCLI: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Exit right away (escape-hatch to run didFinish hook only)")
     var catchUp: Bool = false
 
+    @Flag(name: .long, help: "Run pomodoro indefinitely until interrupted (for meetings with unknown duration)")
+    var indefinite: Bool = false
+
     func run() throws {
-        guard let durationAsTimeInterval = TimeIntervalFormatter().timeInterval(from: duration) else {
-            CLIUtils.write(message: "Invalid duration: \(duration)")
-            return
+        let durationAsTimeInterval: TimeInterval
+
+        if indefinite {
+            // Use infinity to represent indefinite duration
+            durationAsTimeInterval = TimeInterval.infinity
+        } else {
+            guard let parsedDuration = TimeIntervalFormatter().timeInterval(from: duration) else {
+                CLIUtils.write(message: "Invalid duration: \(duration)")
+                return
+            }
+            durationAsTimeInterval = parsedDuration
         }
 
         let pomodoroMessage: String

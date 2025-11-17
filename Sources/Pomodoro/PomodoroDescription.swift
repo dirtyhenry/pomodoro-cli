@@ -21,12 +21,32 @@ public struct PomodoroDescription {
         self.message = message
     }
 
+    /// Creates a pomodoro with a custom start date.
+    /// - Parameters:
+    ///     - startDate: the start date of the pomodoro.
+    ///     - duration: the duration of the pomodoro.
+    ///     - message: a message describing the intent of the pomodoro.
+    public init(startDate: Date, duration: TimeInterval, message: String?) {
+        self.startDate = startDate
+        self.duration = duration
+        self.message = message
+    }
+
     let startDate: Date
     let duration: TimeInterval
     let message: String?
 
+    /// Returns true if this is an indefinite pomodoro (runs until manually stopped)
+    var isIndefinite: Bool {
+        duration.isInfinite
+    }
+
     var endDate: Date {
-        startDate.addingTimeInterval(duration)
+        if isIndefinite {
+            // Return far future date for indefinite pomodoros
+            return Date.distantFuture
+        }
+        return startDate.addingTimeInterval(duration)
     }
 
     var formattedStartDate: String {
@@ -34,7 +54,10 @@ public struct PomodoroDescription {
     }
 
     var formattedEndDate: String {
-        PomodoroDescription.dateFormatter.string(from: endDate)
+        if isIndefinite {
+            return "indefinite"
+        }
+        return PomodoroDescription.dateFormatter.string(from: endDate)
     }
 }
 
