@@ -44,10 +44,14 @@ extension Hook {
 
         canBeExecuted { executable, path in
             if executable, let path {
+                // For indefinite pomodoros, pass "indefinite" as end date
+                let endDateString = description.isIndefinite ? "indefinite" : formatter.string(from: description.endDate)
+                let durationString = description.isIndefinite ? "indefinite" : description.duration.description
+
                 let task = Process.launchedProcess(launchPath: path, arguments: [
                     formatter.string(from: description.startDate),
-                    formatter.string(from: description.endDate),
-                    description.duration.description,
+                    endDateString,
+                    durationString,
                     description.message ?? "n/a"
                 ])
                 task.waitUntilExit()
