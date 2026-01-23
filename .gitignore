@@ -11,3 +11,6 @@ xcuserdata/
 # Build I/O
 .env
 pkg/
+
+# Claude Code
+.claude/settings.local.json
