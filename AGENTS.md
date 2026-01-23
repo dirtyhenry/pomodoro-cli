@@ -32,7 +32,7 @@ make lint
 
 ## Architecture
 
-This is a Swift CLI tool built with Swift Package Manager. The executable is `pomodoro-cli`.
+This is a Swift command-line tool built with Swift Package Manager. The executable is `pomodoro-cli`.
 
 **Target structure:**
 

@@ -4,8 +4,8 @@ set -e
 
 # Check if exactly 4 arguments are provided
 if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 arg1 arg2 arg3 arg4"
-    exit 1
+	echo "Usage: $0 arg1 arg2 arg3 arg4"
+	exit 1
 fi
 
 # This would stop focus.
@@ -27,7 +27,8 @@ EOF
 
 # Insert the 4 arguments into the table
 # Escape single quotes for SQL (replace ' with '')
-SAFE_MESSAGE="${4//\'/\'\'}"
+SQ="'"
+SAFE_MESSAGE="${4//$SQ/$SQ$SQ}"
 sqlite3 "$DATABASE" <<EOF
 INSERT INTO $TABLE (start, end, message)
 VALUES ('$1', '$2', '$SAFE_MESSAGE');
