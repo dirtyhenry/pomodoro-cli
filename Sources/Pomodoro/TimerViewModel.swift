@@ -35,6 +35,11 @@ class TimerViewModel: TimerViewModelType, TimerViewModelInputs, TimerViewModelOu
 
     // MARK: - Define inputs & outputs
 
-    var inputs: TimerViewModelInputs { self }
-    var outputs: TimerViewModelOutputs { self }
+    var inputs: TimerViewModelInputs {
+        self
+    }
+
+    var outputs: TimerViewModelOutputs {
+        self
+    }
 }
