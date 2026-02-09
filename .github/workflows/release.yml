@@ -1,0 +1,114 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Import Code Signing Certificate
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # Create a temporary keychain
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # Import certificate
+          CERTIFICATE_PATH=$RUNNER_TEMP/certificate.p12
+          echo -n "$CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          security import $CERTIFICATE_PATH -P "$CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: Build Universal Binary
+        run: |
+          swift build -c release --product pomodoro-cli --arch arm64 --arch x86_64
+
+      - name: Code Sign Binary
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.CODESIGN_IDENTITY }}
+        run: |
+          xcrun codesign -s "$CODESIGN_IDENTITY" \
+            --options=runtime \
+            --timestamp \
+            .build/apple/Products/Release/pomodoro-cli
+
+      - name: Create Package
+        env:
+          PKG_CODESIGN_IDENTITY: ${{ secrets.PKG_CODESIGN_IDENTITY }}
+          REVERSED_DOMAIN: ${{ secrets.REVERSED_DOMAIN }}
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          PKG_ROOT=./pkg/pomodoro-cli-${VERSION}
+          PKG_DIR=${PKG_ROOT}/usr/local/bin
+          PKG_DMG_ROOT=./pkg/out
+          PKG=./pkg/out/pomodoro-cli-${VERSION}.pkg
+          BUNDLE_ID=${REVERSED_DOMAIN}.pomodoro-cli
+
+          mkdir -p ${PKG_DIR}
+          mkdir -p ${PKG_DMG_ROOT}
+          cp .build/apple/Products/Release/pomodoro-cli ${PKG_DIR}
+
+          xcrun pkgbuild --root ${PKG_ROOT} \
+            --identifier "${BUNDLE_ID}" \
+            --version "${VERSION}" \
+            --install-location "/" \
+            --sign "$PKG_CODESIGN_IDENTITY" \
+            ${PKG}
+
+      - name: Notarize Package
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          PKG=./pkg/out/pomodoro-cli-${VERSION}.pkg
+
+          xcrun notarytool submit \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_PASSWORD" \
+            --team-id "$TEAM_ID" \
+            --wait \
+            "$PKG"
+
+      - name: Staple Package
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          xcrun stapler staple "./pkg/out/pomodoro-cli-${VERSION}.pkg"
+
+      - name: Create DMG
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          hdiutil create \
+            -volname "pomodoro-cli" \
+            -srcfolder "./pkg/out" \
+            -ov \
+            -format UDZO \
+            "./pkg/pomodoro-cli-${VERSION}.dmg"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./pkg/pomodoro-cli-${{ steps.version.outputs.VERSION }}.dmg
+            ./pkg/out/pomodoro-cli-${{ steps.version.outputs.VERSION }}.pkg
+          generate_release_notes: true
