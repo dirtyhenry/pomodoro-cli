@@ -6,7 +6,6 @@ Pomodoro is a command-line interface to run timers from your terminal for people
 
 <div align="center">
   <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
-  </a>
 </div>
 
 ## Usage
@@ -141,15 +140,9 @@ Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/) is rec
 
 Check out [`Makefile`](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Makefile) for more development convenience commands.
 
-### From Distribution Images
+### From GitHub Releases
 
-The `.dmg` files are created via:
-
-```bash
-make clean notarize
-# and upon successful feedback from the Apple notary service:
-make image
-```
+Download the latest `.dmg` or `.pkg` from [GitHub Releases](https://github.com/dirtyhenry/pomodoro-cli/releases).
 
 ## Contributing
 
