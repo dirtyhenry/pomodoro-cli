@@ -53,8 +53,8 @@ deploy:
 	sudo install ".build/release/${PRODUCT}" "$(bindir)/pomodoro-cli"
 	mkdir -p "$(HOME)/.pomodoro-cli"
 	touch "$(HOME)/.pomodoro-cli/journal.yml"
-	cp Resources/SampleHooks/sample-pomodoro-finish.sh "$(HOME)/.pomodoro-cli/pomodoro-finish.sh"
-	cp Resources/SampleHooks/sample-pomodoro-start.sh "$(HOME)/.pomodoro-cli/pomodoro-start.sh"
+	@test -f "$(HOME)/.pomodoro-cli/pomodoro-finish.sh" || cp Resources/SampleHooks/sample-pomodoro-finish.sh "$(HOME)/.pomodoro-cli/pomodoro-finish.sh"
+	@test -f "$(HOME)/.pomodoro-cli/pomodoro-start.sh" || cp Resources/SampleHooks/sample-pomodoro-start.sh "$(HOME)/.pomodoro-cli/pomodoro-start.sh"
 
 deploy-my-hooks:
 	cp Resources/SampleHooks/mickf-pomodoro-finish.sh "$(HOME)/.pomodoro-cli/pomodoro-finish.sh"
