@@ -6,7 +6,6 @@ Pomodoro is a command-line interface to run timers from your terminal for people
 
 <div align="center">
   <img src="https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/usage-carbon.png?raw=true" alt="pomodoro-cli usage example" width="673" height="250">
-  </a>
 </div>
 
 ## Usage
@@ -66,12 +65,28 @@ Use `--indefinite` for meetings or tasks with unknown duration:
 
 ## Hooks
 
-Pomodoro can optionally run shell scripts when a pomodoro starts and/or finishes.
+Hooks let you run custom shell scripts when a pomodoro starts and/or finishes. This is one of the most powerful features of pomodoro-cli — you can integrate with any tool or service.
 
-### Hook Locations
+### Setup
 
-- **Start hook**: `~/.pomodoro-cli/pomodoro-start.sh`
-- **Finish hook**: `~/.pomodoro-cli/pomodoro-finish.sh`
+1. Create the hooks directory (if it doesn't exist):
+   ```bash
+   mkdir -p ~/.pomodoro-cli
+   ```
+
+2. Create your hook scripts:
+   ```bash
+   touch ~/.pomodoro-cli/pomodoro-start.sh
+   touch ~/.pomodoro-cli/pomodoro-finish.sh
+   ```
+
+3. Make them executable:
+   ```bash
+   chmod +x ~/.pomodoro-cli/pomodoro-start.sh
+   chmod +x ~/.pomodoro-cli/pomodoro-finish.sh
+   ```
+
+Both hooks are optional — create only the ones you need.
 
 ### Hook Parameters
 
@@ -86,25 +101,90 @@ Both hooks receive 4 arguments:
 
 **Note**: For indefinite pomodoros, the start hook receives `"indefinite"` for end date and duration. The finish hook always receives actual values.
 
-### Example Hook
+### Examples
+
+#### Basic notification (finish hook)
 
 ```bash
 #!/usr/bin/env bash
-# ~/.pomodoro-cli/pomodoro-finish.sh
-
-START_DATE=$1
-END_DATE=$2
-DURATION=$3
+set -e
 MESSAGE=$4
-
-# Send a notification
 osascript -e "display notification \"$MESSAGE\" with title \"Pomodoro Complete!\""
-
-# Log to a custom file
-echo "$(date): Completed pomodoro - $MESSAGE ($DURATION seconds)" >> ~/pomodoro-log.txt
 ```
 
-Sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/SampleHooks).
+#### Text-to-speech announcements
+
+```bash
+#!/usr/bin/env bash
+set -e
+# Start hook: Italian-accented motivation
+/usr/bin/say --voice=Alice "Andiamo a lavorare!"
+```
+
+```bash
+#!/usr/bin/env bash
+set -e
+# Finish hook: Announce completion and lock screen
+/usr/bin/say --voice=Alice "Il pomodoro è finito."
+sleep 5
+/usr/bin/pmset displaysleepnow
+```
+
+#### Log to SQLite database
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+DATABASE="$HOME/pomodoros.sqlite"
+
+# Create table if needed
+sqlite3 "$DATABASE" <<EOF
+CREATE TABLE IF NOT EXISTS pomodoros (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  start TEXT NOT NULL,
+  end TEXT NOT NULL,
+  message TEXT
+);
+EOF
+
+# Escape single quotes for SQL
+SAFE_MESSAGE="${4//\'/\'\'}"
+
+sqlite3 "$DATABASE" <<EOF
+INSERT INTO pomodoros (start, end, message) VALUES ('$1', '$2', '$SAFE_MESSAGE');
+EOF
+```
+
+#### Integration with Focus apps
+
+```bash
+#!/usr/bin/env bash
+set -e
+# Start hook: Enable focus mode
+/usr/bin/open focus://focus
+```
+
+```bash
+#!/usr/bin/env bash
+set -e
+# Finish hook: Disable focus mode
+/usr/bin/open focus://unfocus
+```
+
+#### Play a sound
+
+```bash
+#!/usr/bin/env bash
+set -e
+afplay /System/Library/Sounds/Glass.aiff
+```
+
+More sample scripts can be found in [the `SampleHooks` directory](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Resources/SampleHooks).
+
+### Note on `make deploy`
+
+When installing from source with `make deploy`, sample hooks are only copied if no hooks exist yet. Your custom hooks are never overwritten.
 
 ## Journal
 
@@ -141,15 +221,9 @@ Installing `swiftlint` and `swiftformat` via [Homebrew](https://brew.sh/) is rec
 
 Check out [`Makefile`](https://github.com/dirtyhenry/pomodoro-cli/blob/main/Makefile) for more development convenience commands.
 
-### From Distribution Images
+### From GitHub Releases
 
-The `.dmg` files are created via:
-
-```bash
-make clean notarize
-# and upon successful feedback from the Apple notary service:
-make image
-```
+Download the latest `.dmg` or `.pkg` from [GitHub Releases](https://github.com/dirtyhenry/pomodoro-cli/releases).
 
 ## Contributing
 
